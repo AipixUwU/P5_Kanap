@@ -10,7 +10,7 @@ const showProduct = async () => {
   const products = await getProducts()
 
   products.map(function(product) {
-    card.innerHTML += `<a href="./product.html?id=42">
+    card.innerHTML += `<a href="./product.html?id=${product._id}">
       <article>
         <img src="${product.imageUrl}" alt="Lorem ipsum dolor sit amet, Kanap name1">
         <h3 class="productName"> ${product.name}</h3>
@@ -18,7 +18,5 @@ const showProduct = async () => {
       </article>
     </a>`
   })
-
 }
-
 showProduct()
