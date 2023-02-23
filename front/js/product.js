@@ -6,8 +6,7 @@ const productImage = document.querySelector(".item__img");
 const productTitle = document.getElementById("title");
 const productPrice = document.getElementById("price");
 const productDescription = document.getElementById("description");
-const productColor = document.getElementById("color");
-
+const productColor = document.getElementById("colors");
 
 const getProduct = async () => {
     return await fetch(productURL).then(response => response.json())
@@ -20,11 +19,10 @@ const productFetch = async () => {
         productTitle.innerHTML = `${product.name}`;
         productDescription.innerHTML = `${product.description}`;
         productImage.innerHTML = `<img src="${product.imageUrl}" alt="${product.altTxt}">`;
+        for (let color of product.colors){
+            productColor.innerHTML += `<option value="${color}">${color}</option>`;
 
-
-        // for (let colors of product.colors){
-          
-        // }
+        }
     }
 
 productFetch()
