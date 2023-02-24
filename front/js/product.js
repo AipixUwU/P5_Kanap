@@ -14,15 +14,15 @@ const getProduct = async () => {
 
 const productFetch = async () => {
     const product = await getProduct()
+    
+    productPrice.innerHTML = `${product.price}`;
+    productTitle.innerHTML = `${product.name}`;
+    productDescription.innerHTML = `${product.description}`;
+    productImage.innerHTML = `<img src="${product.imageUrl}" alt="${product.altTxt}">`;
 
-        productPrice.innerHTML = `${product.price}`;
-        productTitle.innerHTML = `${product.name}`;
-        productDescription.innerHTML = `${product.description}`;
-        productImage.innerHTML = `<img src="${product.imageUrl}" alt="${product.altTxt}">`;
-        for (let color of product.colors){
-            productColor.innerHTML += `<option value="${color}">${color}</option>`;
-
-        }
-    }
+    product.colors.map(function(color) {
+        productColor.innerHTML += `<option value="${color}">${color}</option>`;
+    })   
+}
 
 productFetch()
