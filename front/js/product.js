@@ -9,8 +9,6 @@ const productDescription = document.getElementById("description");
 const productColor = document.getElementById("colors");
 const productQuantity = document.getElementById("quantity");
 
-// const addToCart = document.getElementById("addToCart")
-
 fetch(productURL)
     .then(response => response.json())
     .then(product => {
@@ -49,6 +47,7 @@ let addToCart = document.getElementById("addToCart")
                 // La quantité est compris entre 1 et 100
                 else { 
                     console.log("Ajout au panier")
+                    alert("Le produit a été ajouter au panier");
 
                     let productSelect = {                        
                         title: getProductName,
@@ -57,8 +56,13 @@ let addToCart = document.getElementById("addToCart")
                         quantity: choiceQuantity,
                     }
 
-                    // console.log(productSelect);
-                    let productSelectJSON = JSON.stringify(productSelect);
+                    let product = []
+                    product.push(productSelect);
+                    
+                    
+                    // let productSelectJSON = JSON.stringify(productSelect);
+                    let productSelectJSON = JSON.stringify(product);
+
                     localStorage.setItem(`product`, productSelectJSON);
                 }     
             }
