@@ -25,14 +25,12 @@ fetch(productURL)
 
 
     // Ajout au panier
-let addToCart = document.getElementById("addToCart")
+    // let product = []
+    let addToCart = document.getElementById("addToCart")
     addToCart.addEventListener("click", function(){
 
         let choiceColor = productColor.value;
         let choiceQuantity = productQuantity.value;
-        let getProductName = document.getElementById("title").textContent;
-        let getProductPrice = document.getElementById("price").textContent;
-
 
             if (choiceColor == "") {
                 alert("Selectioner une couleur");
@@ -49,21 +47,36 @@ let addToCart = document.getElementById("addToCart")
                     console.log("Ajout au panier")
                     alert("Le produit a été ajouter au panier");
 
-                    let productSelect = {                        
-                        title: getProductName,
+                    let productSelect = {   
+                        productID: id,                     
                         color: choiceColor,
-                        price: getProductPrice,
                         quantity: choiceQuantity,
                     }
+                    let product = localStorage.getItem("product");
+                    console.log(product);
 
-                    let product = []
-                    product.push(productSelect);
+                    if (product == null) {
+                        product = []
+                    } 
+                    else {
+                        product = JSON.parse(product);
+                    }
                     
+                    let trouve = 0;
+                    product.map(function(canape) {
+
+                        if (productSelect.productID == canape.productID && productSelect.color == canape.color){
+                            trouve = 1;
+                            canape.quantity = Number(canape.quantity) + Number(productSelect.quantity);
+                        }
+                    })
                     
-                    // let productSelectJSON = JSON.stringify(productSelect);
+                    if (trouve == 0) {
+                        product.push(productSelect);
+                    }
+
                     let productSelectJSON = JSON.stringify(product);
-
-                    localStorage.setItem(`product`, productSelectJSON);
-                }     
-            }
+                    localStorage.setItem(`product`, productSelectJSON); 
+                    }    
+                }
 })
