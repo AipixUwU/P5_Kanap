@@ -52,30 +52,30 @@ fetch(productURL)
                         color: choiceColor,
                         quantity: choiceQuantity,
                     }
-                    let product = localStorage.getItem("product");
-                    console.log(product);
+                    let products = localStorage.getItem("product");
+                    console.log(products);
 
-                    if (product == null) {
-                        product = []
+                    if (products == null) {
+                        products = []
                     } 
                     else {
-                        product = JSON.parse(product);
+                        products = JSON.parse(products);
                     }
                     
                     let trouve = 0;
-                    product.map(function(canape) {
+                    products.map(function(product) {
 
-                        if (productSelect.productID == canape.productID && productSelect.color == canape.color){
+                        if (productSelect.productID == product.productID && productSelect.color == product.color){
                             trouve = 1;
-                            canape.quantity = Number(canape.quantity) + Number(productSelect.quantity);
+                            product.quantity = Number(product.quantity) + Number(productSelect.quantity);
                         }
                     })
                     
                     if (trouve == 0) {
-                        product.push(productSelect);
+                        products.push(productSelect);
                     }
 
-                    let productSelectJSON = JSON.stringify(product);
+                    let productSelectJSON = JSON.stringify(products);
                     localStorage.setItem(`product`, productSelectJSON); 
                     }    
                 }
