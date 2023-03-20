@@ -1,4 +1,6 @@
-let productsURL = `http://localhost:3000/api/products/`;
+function affichagePanier (){
+
+
 let showProduct = document.getElementById("cart__items");
 let getProducts = JSON.parse(localStorage.getItem(`product`));
 let selectProduct = [];
@@ -7,6 +9,10 @@ let totalPrice = document.getElementById("totalPrice");
 let allPrice = 0;
 let allQuantity = 0;
 let deleteItem = document.getElementsByClassName("deleteItem");
+
+showProduct.innerHTML = "";
+totalQuantity.textContent = allQuantity;
+totalPrice.textContent = allPrice;
 
 
 
@@ -64,11 +70,21 @@ getProducts.map(function (showCart) {
           console.log(articleParent.dataset.id);
           console.log(articleParent.dataset.color);
 
+          let dataColor = articleParent.dataset.color;
+          let dataId = articleParent.dataset.id;
+          let productIndex = getProducts.findIndex((element) => element.productID == dataId && element.color == dataColor);
+          getProducts.splice (productIndex, 1)
+          localStorage.setItem(`product`, JSON.stringify(getProducts));
+          affichagePanier();
+          console.log(getProducts);
+
 
         })
       })
     })
 })
+}
+affichagePanier()
 
 const submit = document.getElementById("order")
 
