@@ -33,18 +33,17 @@ addToCart.addEventListener("click", function () {
     let choiceQuantity = productQuantity.value;
 
     if (choiceColor == "") {
-        alert("Selectioner une couleur");
+        alert("Veuillez sélectionner une couleur.");
     }
-
     //Une couleur a été selectionner
     else {
 
         if (choiceQuantity <= 0 || choiceQuantity > 100) {
-            alert("Quantité incorrecte")
+            alert("La quantité saisie est incorrecte.")
         }
         // La quantité est compris entre 1 et 100
         else {
-            console.log("Ajout au panier")
+            console.log("Produit ajouter au panier")
             alert("Le produit a été ajouter au panier");
 
             let productSelect = {
@@ -53,7 +52,6 @@ addToCart.addEventListener("click", function () {
                 quantity: choiceQuantity,
             }
             let products = localStorage.getItem("product");
-            console.log(products);
 
             if (products == null) {
                 products = []
@@ -62,16 +60,16 @@ addToCart.addEventListener("click", function () {
                 products = JSON.parse(products);
             }
 
-            let trouve = 0;
+            let found = 0;
             products.map(function (product) {
 
                 if (productSelect.productID == product.productID && productSelect.color == product.color) {
-                    trouve = 1;
+                    found = 1;
                     product.quantity = Number(product.quantity) + Number(productSelect.quantity);
                 }
             })
 
-            if (trouve == 0) {
+            if (found == 0) {
                 products.push(productSelect);
             }
 
