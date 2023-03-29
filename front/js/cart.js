@@ -178,7 +178,7 @@ submit.addEventListener("click", function (e) {
             .then((infosResponse) => {
                 // console.log("Success:", infosResponse.orderId);
                 localStorage.setItem(`orderId`, infosResponse.orderId);
-                window.location.href = "http://127.0.0.1:5500/front/html/confirmation.html";
+                window.location.href = "confirmation.html";
             })
     }
 })
