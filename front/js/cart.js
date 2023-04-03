@@ -15,8 +15,9 @@ function affichagePanier() {
     totalPrice.textContent = allPrice;
 
     // CACHE LE FORMULAIRE LORSQUE LE PANIER EST VIDE
-    let numberOfItems = localStorage.length;
-    if (numberOfItems > 0 && localStorage.getItem(`product`) === "[]") {
+    if (getProducts == null || localStorage.getItem(`product`) === "[]") {
+        alert("Le panier est vide");
+        getProducts = [];
         document.querySelector(".cart__order__form").hidden = true;
     }
 
@@ -133,25 +134,40 @@ submit.addEventListener("click", function (e) {
         document.getElementById("firstNameErrorMsg").textContent = "Prénom invalide"
         error = true;
     }
+    else {
+        document.getElementById("firstNameErrorMsg").textContent = ""
+    }
 
     if (!name.test(contact.lastName)) {
         document.getElementById("lastNameErrorMsg").textContent = "Nom invalide"
         error = true;
+    }
+    else {
+        document.getElementById("lastNameErrorMsg").textContent = ""
     }
 
     if (!name.test(contact.address)) {
         document.getElementById("addressErrorMsg").textContent = "Adresse invalide"
         error = true;
     }
+    else {
+        document.getElementById("addressErrorMsg").textContent = ""
+    }
 
     if (!name.test(contact.city)) {
         document.getElementById("cityErrorMsg").textContent = "Ville invalide"
         error = true;
     }
+    else {
+        document.getElementById("cityErrorMsg").textContent = ""
+    }
 
     if (!email.test(contact.email)) {
         document.getElementById("emailErrorMsg").textContent = "Adresse e-mail invalide"
         error = true;
+    }
+    else {
+        document.getElementById("emailErrorMsg").textContent = ""
     }
 
     let products = [];
@@ -176,7 +192,6 @@ submit.addEventListener("click", function (e) {
         })
             .then((response) => response.json())
             .then((infosResponse) => {
-                // console.log("Success:", infosResponse.orderId);
                 localStorage.setItem(`orderId`, infosResponse.orderId);
                 window.location.href = "confirmation.html";
             })
