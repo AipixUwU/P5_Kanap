@@ -10,7 +10,7 @@ function affichagePanier() {
 
 
     //UPDATE
-    showProduct.innerHTML = "";
+    showProduct.textContent = "";
     totalQuantity.textContent = allQuantity;
     totalPrice.textContent = allPrice;
 
@@ -24,6 +24,7 @@ function affichagePanier() {
     // BOUCLE QUI PERMET DE RECUPERER (DEPUIS API) ET AFFICHER LES PRODUITS QUI SONT DANS LE LOCALSTORAGE
     getProducts.map(function (showCart) {
         let productID = showCart.productID;
+        // Récupère les id de tout les produits de l'api
         let productURL = `http://localhost:3000/api/products/${productID}`;
         fetch(productURL)
             .then(response => response.json())
@@ -32,7 +33,7 @@ function affichagePanier() {
                     selectProduct = products;
                 }
 
-                showProduct.innerHTML +=
+                showProduct.insertAdjacentHTML('beforeend', 
 
                     `<article class="cart__item" data-id="${showCart.productID}" data-color="${showCart.color}">
                 <div class="cart__item__img">
@@ -54,15 +55,15 @@ function affichagePanier() {
                     </div>
                 </div>
                 </div>
-                </article>`
+                </article>`)
 
                 // PRIX TOTAL
                 allPrice = Number(totalPrice.textContent) + selectProduct.price * showCart.quantity;
-                totalPrice.innerHTML = allPrice;
+                totalPrice.textContent = allPrice;
 
                 // QUANTITEE TOTAL
                 allQuantity = Number(totalQuantity.textContent) + Number(showCart.quantity);
-                totalQuantity.innerHTML = allQuantity;
+                totalQuantity.textContent = allQuantity;
 
 
                 // BOUCLE PERMETTANT D'ACTUALISER LA QUANTITÉ DEPUIS LE PANIER
@@ -85,8 +86,14 @@ function affichagePanier() {
                             articleParent.remove("article");
                         }
 
+                        if (q.value > 100) {
+                            alert("La quantitée saisie est incorrecte");
+                        }
+
+                        else {
                         localStorage.setItem(`product`, JSON.stringify(getProducts));
                         affichagePanier();
+                        }
                     })
                 })
 
@@ -130,7 +137,7 @@ submit.addEventListener("click", function (e) {
 
     let error = false;
 
-    if (!name.test(contact.firstName)) {
+    if (!name.test(contact.firstName.trim())) {
         document.getElementById("firstNameErrorMsg").textContent = "Prénom invalide"
         error = true;
     }
@@ -138,7 +145,7 @@ submit.addEventListener("click", function (e) {
         document.getElementById("firstNameErrorMsg").textContent = ""
     }
 
-    if (!name.test(contact.lastName)) {
+    if (!name.test(contact.lastName.trim())) {
         document.getElementById("lastNameErrorMsg").textContent = "Nom invalide"
         error = true;
     }
@@ -146,7 +153,7 @@ submit.addEventListener("click", function (e) {
         document.getElementById("lastNameErrorMsg").textContent = ""
     }
 
-    if (!name.test(contact.address)) {
+    if (!name.test(contact.address.trim())) {
         document.getElementById("addressErrorMsg").textContent = "Adresse invalide"
         error = true;
     }
@@ -154,7 +161,7 @@ submit.addEventListener("click", function (e) {
         document.getElementById("addressErrorMsg").textContent = ""
     }
 
-    if (!name.test(contact.city)) {
+    if (!name.test(contact.city.trim())) {
         document.getElementById("cityErrorMsg").textContent = "Ville invalide"
         error = true;
     }
@@ -162,7 +169,7 @@ submit.addEventListener("click", function (e) {
         document.getElementById("cityErrorMsg").textContent = ""
     }
 
-    if (!email.test(contact.email)) {
+    if (!email.test(contact.email.trim())) {
         document.getElementById("emailErrorMsg").textContent = "Adresse e-mail invalide"
         error = true;
     }
